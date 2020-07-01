@@ -41,8 +41,8 @@ const Post = (props) => {
         <Fragment>
             <DefaultCard onClick={(e) => onPostClicked(postDetails.id)} className={styles.postCard} >
                 <ContainerLayoutRow alignment="start" >
-                    <StyledPostImage src={postDetails.thumbnail}>
-                        <img height="auto" width="320" src={postDetails.thumbnail} style={{borderRadius: '5px'}}></img>
+                    <StyledPostImage>
+                        <img height="250px" src={postDetails.thumbnail} className={styles.thumbnail} ></img>
                     </StyledPostImage>
                     <ContainerLayoutColumn style={{padding: '1em'}}>
                         <StyledPostTitle>
@@ -50,7 +50,7 @@ const Post = (props) => {
                         </StyledPostTitle>
                         <StyledPostContent dangerouslySetInnerHTML={{__html: postDetails.excerpt}} >
                         </StyledPostContent>
-                        <ContainerLayoutRow>
+                        <ContainerLayoutRow style={{paddingTop: '1em', marginTop: '1em', borderTop: '1px solid #efefef'}}>
                             <ClockIcon height="1em" width="1em"></ClockIcon>
                             <StyledDate>
                                 {postDetails.date}

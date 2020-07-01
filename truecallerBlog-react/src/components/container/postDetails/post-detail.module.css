@@ -1,0 +1,14 @@
+.postBanner {
+  min-height: 300px;
+  min-width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0.5em;
+  color: whitesmoke;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  font: 700;
+  font-size: 2em;
+}

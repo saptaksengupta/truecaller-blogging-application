@@ -3,5 +3,12 @@
     margin: 2em 0;
     min-height: 10em;
     cursor: pointer;
+    padding: 0px!important;
+    height: 250px;
 }
 
+
+.thumbnail {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}

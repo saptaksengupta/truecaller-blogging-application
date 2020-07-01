@@ -9,7 +9,7 @@ import Post from '../../functional/Post';
 
 
 
-const Posts = () => {
+const Posts = (props) => {
 
     const { posts, dispatch } = useContext(PostContext);
 

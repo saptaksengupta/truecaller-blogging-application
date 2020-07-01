@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import HomePage from './components/container/HomePage/HomePage';
+import PostDetail from './components/container/postDetails/PostDetail';
 
 function App() {
 
@@ -10,7 +11,7 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/posts/:postId" component={HomePage} />
+        <Route exact path="/posts/:postId" component={PostDetail} />
       </Switch>
     </BrowserRouter>
   );
