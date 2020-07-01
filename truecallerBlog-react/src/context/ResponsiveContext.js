@@ -1,5 +1,5 @@
-import React, { Component, createContext, useReducer, useEffect } from 'react';
-import { ResponsiveReducer, getDeviceBasedOnWindow, SUPPORTED_DEVICES } from "../reducers/ResponsiveReducer";
+import React, { createContext, useReducer } from 'react';
+import { ResponsiveReducer, getDeviceBasedOnWindow } from "../reducers/ResponsiveReducer";
 
 export const ResponsiveContext = createContext();
 

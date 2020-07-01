@@ -1,0 +1,7 @@
+.postCard {
+    width: 90%;
+    margin: 2em 0;
+    min-height: 10em;
+    cursor: pointer;
+}
+

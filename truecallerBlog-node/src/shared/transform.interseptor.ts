@@ -18,7 +18,7 @@ export class TransformInterceptor<T> implements NestInterceptor<T, Response> {
             const url = ctx.getRequest().url;
             const response = ctx.getResponse();
             const method = ctx.getRequest().method;
-            const httpResponse = { status: data.code, dateTime: new Date().toISOString(), method: method, path: url, data: data.data };
+            const httpResponse = { status: data.code, dateTime: new Date().toISOString(), method: method, path: url, response: data.data };
             return response.json(httpResponse);
         }))
     }

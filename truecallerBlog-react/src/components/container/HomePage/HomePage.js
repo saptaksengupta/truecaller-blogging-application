@@ -1,19 +1,24 @@
-import React, { Fragment, useEffect, useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 
-import { ContainerLayoutRow } from '../../styled/CommonUtils';
-import { ResponsiveContext } from '../../../context/ResponsiveContext';
-import { SUPPORTED_DEVICES } from '../../../reducers/ResponsiveReducer'
+import { ContainerLayoutRow, ContainerLayoutColumn } from '../../styled/CommonUtils';
+import PostContextProvider from '../../../context/PostContext';
+
+//Child Components...
+import Posts from '../posts/Posts';
 
 
 const HomePage = () => {
-    const { responsiveState } = useContext(ResponsiveContext);
-    const currentDevice = responsiveState.device;
     return (
         <Fragment>
-            <ContainerLayoutRow alignment="center" style={{ height: '100%' }}>
-                
-                Word press Blogging app
-            </ContainerLayoutRow>
+            <PostContextProvider>
+                <ContainerLayoutColumn alignment="center" style={{ height: '100%' }}>
+                    <div style={{padding: '1em'}}>
+                        Word press Blogging app
+                    </div>
+                    <Posts></Posts>
+                </ContainerLayoutColumn>
+            </PostContextProvider>
+
         </Fragment>
     )
 }
