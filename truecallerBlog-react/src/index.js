@@ -12,8 +12,7 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     // height: auto;
     background: #c3cfe2;  /* fallback for old browsers */
-    // background-image: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    background: linear-gradient(63.55deg, #E58DFB 18.89%, rgba(242, 191, 255, 0.47) 115.55%);
+    background: linear-gradient(63.55deg, #ecf0f2 18.89%, #c6d3ea 115.55%);
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;

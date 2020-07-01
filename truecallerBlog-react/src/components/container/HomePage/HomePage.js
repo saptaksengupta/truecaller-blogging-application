@@ -11,8 +11,8 @@ const HomePage = () => {
     return (
         <Fragment>
             <PostContextProvider>
-                <ContainerLayoutColumn alignment="center" style={{ height: '100%' }}>
-                    <div style={{padding: '1em'}}>
+                <ContainerLayoutColumn alignment="center" style={{ height: '100%', justifyContent:' flex-start' }}>
+                    <div style={{padding: '1em', minHeight: '50px'}}>
                         Word press Blogging app
                     </div>
                     <Posts></Posts>

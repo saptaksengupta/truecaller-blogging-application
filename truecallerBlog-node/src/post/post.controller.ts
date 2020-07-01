@@ -38,7 +38,7 @@ export class PostController {
             
             const postDetails = await this.postService.fetchPostDetails(postId);
             const relatedPosts = await this.postService.getRelatedPosts(postId);
-            if (relatedPosts.length > 0) {
+            if (postDetails && relatedPosts.length > 0) {
                 postDetails.relatedPosts = relatedPosts;
             }
             return { data: postDetails, code: HttpStatus.OK };

@@ -31,6 +31,7 @@ export class TrueCallerApiService implements IBlogApi {
     }
 
     getPostDetailsUrl(postId: number): string {
+        Logger.log('Url: ' + `${this.baseUrl}/${this.configService.get('SITE_ID')}/posts/${postId}`);
         return `${this.baseUrl}/${this.configService.get('SITE_ID')}/posts/${postId}`;
     }
 

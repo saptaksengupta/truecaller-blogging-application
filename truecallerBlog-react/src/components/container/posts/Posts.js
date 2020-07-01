@@ -39,13 +39,13 @@ const Posts = (props) => {
 
     const postArray = posts.map((post, index) => {
         return (
-            <Post postDetails={post} key={post.id}></Post>
+            <Post postDetails={post} key={post.id} itemIndex={index}></Post>
         )
     });
 
     return (
         <Fragment>
-            <ContainerLayoutColumn alignment="center" style={{ marginTop:'3em', height: '100%', width: '100%', justifyContent: 'flex-start' }}>
+            <ContainerLayoutColumn alignment="center" style={{ width: '100%', justifyContent: 'flex-start' }}>
                 {postArray}
             </ContainerLayoutColumn>
         </Fragment>

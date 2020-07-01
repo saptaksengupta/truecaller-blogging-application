@@ -15,10 +15,26 @@ const StyledPostContent = styled.div`
     color: black;
 `;
 
+const StyledPostTitle = styled.div`
+    font-weight: 700;
+    font-size: 2em;
+    padding: 1em;
+`;
+
+const StyledCategoryList = styled.ul`
+
+`;
+
+const StyledCategoryLists = styled.li`
+    list-style:none;
+`;
+
 const PostDetail = (props) => {
     const [postDetail, setPosDetail] = useState(null);
     const { postId } = props.match.params;
-    
+
+    const [showSideNav, setShowSideNav] = useState(false);
+
     useEffect(() => {
         getPostDetails(postId);
     }, []);
@@ -36,18 +52,46 @@ const PostDetail = (props) => {
         });
     }
 
+    const toggleSideNav = () => {
+        setShowSideNav(!showSideNav);
+    }
+
+    const sideBarClssNames = `${styles.navBar}`;
+    const postContainerClassNames = `${styles.postContainer} ${showSideNav ? styles.sideNavOpen : styles.sideNavClose}`;
+
     return (
         postDetail ? (
             <Fragment>
-                <ContainerLayoutColumn alignment="start" style={{ justifyContent: 'flex-start', height: '100%' }}>
-                    <div style={{top:'0', minWidth: '100%'}}>
-                        <div className={styles.postBanner} style={{backgroundImage: `url(${postDetail.thumbnail})`}} >
-                            {postDetail.title}
-                        </div>
+                <div className={styles.postSideBarContainer}>
+                    <div className={sideBarClssNames}>
+                        {showSideNav && (
+                            <ContainerLayoutColumn>
+                                <StyledCategoryList>
+                                    Category List
+                                    <StyledCategoryLists>
+
+                                    </StyledCategoryLists>
+                                </StyledCategoryList>
+                            </ContainerLayoutColumn>
+                        )}
                     </div>
-                    <StyledPostContent dangerouslySetInnerHTML={{__html: postDetail.content}}>
-                    </StyledPostContent>
-                </ContainerLayoutColumn>
+                    <ContainerLayoutColumn className={postContainerClassNames} alignment="start">
+                        <div style={{ minWidth: '97%', margin: '1em 1em 0 1em' }}>
+                            <div className={styles.postBanner} style={{ backgroundImage: `url(${postDetail.thumbnail})` }} >
+                                <div onClick={(e) => {toggleSideNav()}}>Menu</div>
+                            </div>
+                        </div>
+
+                        <StyledPostContent >
+                            <StyledPostTitle>
+                                {postDetail.title}
+                            </StyledPostTitle>
+                            <StyledPostContent dangerouslySetInnerHTML={{ __html: postDetail.content }}>
+
+                            </StyledPostContent>
+                        </StyledPostContent>
+                    </ContainerLayoutColumn>
+                </div>
             </Fragment>
         ) : 'Fetching Post Details...'
 

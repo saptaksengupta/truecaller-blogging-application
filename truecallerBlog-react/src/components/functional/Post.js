@@ -39,7 +39,7 @@ const Post = (props) => {
 
     return (
         <Fragment>
-            <DefaultCard onClick={(e) => onPostClicked(postDetails.id)} className={styles.postCard} >
+            <DefaultCard style={{ "--animation-order": props.itemIndex }} onClick={(e) => onPostClicked(postDetails.id)} className={styles.postCard} >
                 <ContainerLayoutRow alignment="start" >
                     <StyledPostImage>
                         <img height="250px" src={postDetails.thumbnail} className={styles.thumbnail} ></img>
