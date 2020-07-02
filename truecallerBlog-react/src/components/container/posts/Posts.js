@@ -1,5 +1,7 @@
 import React, { Fragment, useContext, useEffect } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+
 import { getBaseUrl, getRestApiCommonHeader } from '../../../Config';
 
 import { ContainerLayoutRow, ContainerLayoutColumn } from '../../styled/CommonUtils';
@@ -13,12 +15,30 @@ const Posts = (props) => {
 
     const { posts, dispatch } = useContext(PostContext);
 
+    const {slug, tag, after} = props;
+
     useEffect(() => {
         getPosts();
     }, []);
 
+    const getUrlWithQueryParams = () => {
+        let url = `${getBaseUrl()}posts`;
+        if (slug) {
+            url = `${url}?slug=${slug}`;
+        }
+
+        if (tag) {
+            url = `${url}?tag=${tag}`;
+        }
+
+        if (after) {
+            url = `${url}?after=${after}`;
+        }
+        return url
+    }
+
     const getPosts = () => {
-        const url = `${getBaseUrl()}posts`;
+        const url = getUrlWithQueryParams();
         axios.get(url, {
             headers: getRestApiCommonHeader()
         }).then((resp) => {
@@ -50,6 +70,12 @@ const Posts = (props) => {
             </ContainerLayoutColumn>
         </Fragment>
     )
+}
+
+Posts.propTypes = {
+    category: PropTypes.string,
+    tag: PropTypes.string,
+    after: PropTypes.string
 }
 
 export default Posts;

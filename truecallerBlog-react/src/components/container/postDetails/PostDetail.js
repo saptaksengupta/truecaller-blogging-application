@@ -7,6 +7,7 @@ import { getBaseUrl, getRestApiCommonHeader } from '../../../Config';
 import { ContainerLayoutRow, ContainerLayoutColumn } from '../../styled/CommonUtils';
 
 //Child Components...
+import SideNav from './SideNav';
 
 const StyledPostContent = styled.div`
     padding: 1em;
@@ -21,23 +22,28 @@ const StyledPostTitle = styled.div`
     padding: 1em;
 `;
 
-const StyledCategoryList = styled.ul`
-
-`;
-
-const StyledCategoryLists = styled.li`
-    list-style:none;
-`;
-
 const PostDetail = (props) => {
     const [postDetail, setPosDetail] = useState(null);
     const { postId } = props.match.params;
 
-    const [showSideNav, setShowSideNav] = useState(false);
+    const [showSideNav, setShowSideNav] = useState(true);
 
     useEffect(() => {
         getPostDetails(postId);
     }, []);
+
+    const getTagsBySiteId = () => {
+        const url = `${getBaseUrl()}posts/${postId}`;
+        axios.get(url, {
+            headers: getRestApiCommonHeader()
+        }).then((resp) => {
+            if (resp.data.response) {
+                setPosDetail(resp.data.response);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
 
     const getPostDetails = (postId) => {
         const url = `${getBaseUrl()}posts/${postId}`;
@@ -65,20 +71,13 @@ const PostDetail = (props) => {
                 <div className={styles.postSideBarContainer}>
                     <div className={sideBarClssNames}>
                         {showSideNav && (
-                            <ContainerLayoutColumn>
-                                <StyledCategoryList>
-                                    Category List
-                                    <StyledCategoryLists>
-
-                                    </StyledCategoryLists>
-                                </StyledCategoryList>
-                            </ContainerLayoutColumn>
+                            <SideNav categories={postDetail.categories}></SideNav>
                         )}
                     </div>
                     <ContainerLayoutColumn className={postContainerClassNames} alignment="start">
                         <div style={{ minWidth: '97%', margin: '1em 1em 0 1em' }}>
                             <div className={styles.postBanner} style={{ backgroundImage: `url(${postDetail.thumbnail})` }} >
-                                <div onClick={(e) => {toggleSideNav()}}>Menu</div>
+                                <div onClick={(e) => { toggleSideNav() }}>Menu</div>
                             </div>
                         </div>
 

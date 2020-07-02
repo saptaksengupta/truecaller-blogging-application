@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 
 import { ContainerLayoutRow, ContainerLayoutColumn } from '../../styled/CommonUtils';
 import PostContextProvider from '../../../context/PostContext';
@@ -6,15 +6,18 @@ import PostContextProvider from '../../../context/PostContext';
 //Child Components...
 import Posts from '../posts/Posts';
 
-const HomePage = () => {
+const TagPage = (props) => {
+
+    const { tag } = props.match.params;
+
     return (
         <Fragment>
             <PostContextProvider>
                 <ContainerLayoutColumn alignment="center" style={{ height: '100%', justifyContent:' flex-start' }}>
                     <div style={{padding: '1em', minHeight: '50px'}}>
-                        Word press Blogging app
+                        Latest posts on {tag}
                     </div>
-                    <Posts></Posts>
+                    <Posts tag={tag} ></Posts>
                 </ContainerLayoutColumn>
             </PostContextProvider>
 
@@ -22,4 +25,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage;
+export default TagPage;
