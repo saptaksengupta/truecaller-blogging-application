@@ -23,6 +23,10 @@ export class TrueCallerApiService implements IBlogApi {
         if (queryParams && queryParams.tag) {
             url = `${url}&tag=${queryParams.tag}`;
         }
+
+        if (queryParams && queryParams.after) {
+            url = `${url}&after=${queryParams.after}`;
+        }
         return url;
     }
 
@@ -36,6 +40,7 @@ export class TrueCallerApiService implements IBlogApi {
     }
 
     getPosts(queryParams): Observable<Post[]> {
+        Logger.log('Url: ' + this.getPostsUrl(queryParams));
         const postResponse = this.httpService.get(this.getPostsUrl(queryParams)).pipe(
             map(resp => {
                 return resp.data;
