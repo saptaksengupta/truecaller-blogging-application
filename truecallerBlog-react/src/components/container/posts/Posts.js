@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 
@@ -12,8 +12,8 @@ import Post from '../../functional/Post';
 const Posts = (props) => {
 
     const { posts, dispatch } = useContext(PostContext);
-
-    const {slug, tag, after} = props;
+    const [isLoading, setIsLoading] = useState(false);
+    const { slug, tag, after } = props;
 
     useEffect(() => {
         getPosts();
@@ -36,6 +36,7 @@ const Posts = (props) => {
     }
 
     const getPosts = () => {
+        setIsLoading(true);
         const url = getUrlWithQueryParams();
         axios.get(url, {
             headers: getRestApiCommonHeader()
@@ -46,8 +47,10 @@ const Posts = (props) => {
                     handlePosts(post, dispatch);
                 });
             }
+            setIsLoading(false)
         }).catch((err) => {
             console.log(err);
+            setIsLoading(false)
         });
     }
 
@@ -63,9 +66,25 @@ const Posts = (props) => {
 
     return (
         <Fragment>
-            <ContainerLayoutColumn alignment="center" style={{ width: '100%', justifyContent: 'flex-start' }}>
-                {postArray}
-            </ContainerLayoutColumn>
+            {(posts.length > 0 && !isLoading) && (
+                <ContainerLayoutColumn alignment="center" style={{ width: '100%', justifyContent: 'flex-start' }}>
+                    {postArray}
+                </ContainerLayoutColumn>
+            )}
+            {
+                (posts.length == 0 && !isLoading) && (
+                    <ContainerLayoutColumn alignment="center" style={{ width: '100%', justifyContent: 'flex-start' }}>
+                        No Posts Found 🙁
+                    </ContainerLayoutColumn>
+                )
+            }
+            {
+                (posts.length == 0 && isLoading) && (
+                    <ContainerLayoutColumn alignment="center" style={{ width: '100%', justifyContent: 'flex-start' }}>
+                        Fetching, please wait ... 🤔
+                    </ContainerLayoutColumn>
+                )
+            }
         </Fragment>
     )
 }

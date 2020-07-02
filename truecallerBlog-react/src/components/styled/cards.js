@@ -6,7 +6,7 @@ export const DefaultCard = styled.div`
     background-color: white;
     width: ${props => props.width ? props.width : ''};
     max-width: 100%;
-    border-radius: 5px;
+    border-radius: 1em;
     -webkit-box-shadow: 18px 0px 102px -18px rgba(24,40,72,1);
     -moz-box-shadow: 18px 0px 102px -18px rgba(24,40,72,1);
     box-shadow: 18px 0px 102px -18px rgba(24,40,72,1);

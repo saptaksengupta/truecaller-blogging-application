@@ -8,7 +8,6 @@ import { Post } from 'src/entity/post.entity';
 
 @Controller('posts')
 export class PostController {
-
     constructor(private postService: PostService, private utilityService: UtilityService) { }
 
     @Get()
@@ -32,7 +31,7 @@ export class PostController {
             await this.postService.getPosts(searchQueryObj).then((resp) => {
                 posts = resp;
             });
-            return resp.status(HttpStatus.OK).json({response: posts});
+            return resp.status(HttpStatus.OK).json({ response: posts });
 
         } catch (error) {
             console.log(error);
@@ -56,24 +55,19 @@ export class PostController {
             }
         });
 
-        return await resp.status(HttpStatus.OK).json({response: postDetails});
+        return await resp.status(HttpStatus.OK).json({ response: postDetails });
     }
 
     @Get(':postId/categories')
-    async getPostCategories(@Headers() headers, @Param() params): Promise<DefaultHttpReturnType> {
+    async getPostCategories(@Headers() headers, @Param() params, @Res() resp: Response): Promise<Response> {
+        const siteId = headers.siteid;
+        const postId = params.postId
+        const isValidUser = await this.utilityService.isValidUser(siteId);
+        if (!isValidUser)
+            throw new HttpException(ERROR_STRINGS.SITE_ID_INVALID, HttpStatus.BAD_REQUEST);
 
-        try {
-            const siteId = headers.siteid;
-            const postId = params.postId
-            const isValidUser = await this.utilityService.isValidUser(siteId);
-            if (!isValidUser)
-                throw new HttpException(ERROR_STRINGS.SITE_ID_INVALID, HttpStatus.BAD_REQUEST);
-
-            const postCategories = this.postService.getPostCategories(postId);
-            return { data: postCategories, code: HttpStatus.OK };
-        } catch (error) {
-            console.log(error);
-        }
+        const postCategories = await this.postService.getPostCategories(postId);
+        return resp.status(HttpStatus.OK).json({ response: postCategories });
     }
 
     @Get(':postId/related')
@@ -88,7 +82,7 @@ export class PostController {
         await this.postService.getRelatedPostsByIds(postIds).then((resp) => {
             postDetails = resp
         })
-        return resp.status(HttpStatus.OK).json({response: postDetails});
+        return resp.status(HttpStatus.OK).json({ response: postDetails });
     }
 
 }

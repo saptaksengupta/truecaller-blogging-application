@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import styles from './post-detail.module.css';
 
 import { getBaseUrl, getRestApiCommonHeader } from '../../../Config';
-import { ContainerLayoutRow, ContainerLayoutColumn } from '../../styled/CommonUtils';
+import { ContainerLayoutColumn } from '../../styled/CommonUtils';
 
 //Child Components...
 import SideNav from './SideNav';
@@ -27,24 +27,11 @@ const PostDetail = (props) => {
     const [postDetail, setPosDetail] = useState(null);
     const { postId } = props.match.params;
 
-    const [showSideNav, setShowSideNav] = useState(true);
+    const [showSideNav, setShowSideNav] = useState(false);
 
     useEffect(() => {
         getPostDetails(postId);
     }, []);
-
-    const getTagsBySiteId = () => {
-        const url = `${getBaseUrl()}posts/${postId}`;
-        axios.get(url, {
-            headers: getRestApiCommonHeader()
-        }).then((resp) => {
-            if (resp.data.response) {
-                setPosDetail(resp.data.response);
-            }
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
 
     const getPostDetails = (postId) => {
         const url = `${getBaseUrl()}posts/${postId}`;

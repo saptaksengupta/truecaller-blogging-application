@@ -13,8 +13,8 @@
 }
 
 .thumbnail {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-top-left-radius: 1em;
+  border-bottom-left-radius: 1em;
 }
 
 

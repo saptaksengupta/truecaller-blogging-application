@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Post } from '../entity/post.entity';
 import { BlogApiFactory } from 'src/factory/blog-api.factory';
 import { map } from 'rxjs/operators'
@@ -14,7 +13,6 @@ export class PostService {
     private postDetails: Post;
     private relatedPosts = [];
     constructor(
-        private configService: ConfigService,
         private blogApiFactory: BlogApiFactory
     ) {
         this.blogApiProvider = this.blogApiFactory.getApiInstance();

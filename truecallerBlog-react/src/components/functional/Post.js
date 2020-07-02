@@ -6,6 +6,7 @@ import { ContainerLayoutColumn, ContainerLayoutRow } from '../styled/CommonUtils
 import { ClockIcon } from '../styled/Icons';
 import { DefaultCard } from '../styled/cards';
 import styles from './post.module.css';
+import { DateTimeUtils } from '../../shared/DateTimehelper';
 
 
 const StyledPostImage = styled.div`
@@ -36,6 +37,7 @@ const Post = (props) => {
 
     const onPostClicked = (postId) => {
         history.push(`/posts/${postId}`);
+        window.location.reload();
     }
 
     return (
@@ -54,7 +56,7 @@ const Post = (props) => {
                         <ContainerLayoutRow style={{paddingTop: '1em', marginTop: '1em', borderTop: '1px solid #efefef'}}>
                             <ClockIcon height="1em" width="1em"></ClockIcon>
                             <StyledDate>
-                                {postDetails.date}
+                                {DateTimeUtils.getFromNow(postDetails.date)}
                             </StyledDate>
                         </ContainerLayoutRow>
                     </ContainerLayoutColumn>

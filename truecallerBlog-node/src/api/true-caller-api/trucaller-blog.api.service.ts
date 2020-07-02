@@ -39,6 +39,11 @@ export class TrueCallerApiService implements IBlogApi {
         return `${this.baseUrl}/${this.configService.get('SITE_ID')}/posts/${postId}`;
     }
 
+    getSiteTagsUrl(): string {
+        Logger.log('Url: ' + `${this.baseUrl}/${this.configService.get('SITE_ID')}/tags/?order_by=count`);
+        return `${this.baseUrl}/${this.configService.get('SITE_ID')}/tags/?number=${this.configService.get('postLimit')}&order_by=count`;
+    }
+
     getPosts(queryParams): Observable<Post[]> {
         Logger.log('Url: ' + this.getPostsUrl(queryParams));
         const postResponse = this.httpService.get(this.getPostsUrl(queryParams)).pipe(
@@ -49,7 +54,7 @@ export class TrueCallerApiService implements IBlogApi {
         return postResponse;
     }
 
-    getPostDetails(postId: number): Observable<Post[]> {
+    getPostDetails(postId: number): Observable<Post> {
         const postResponse = this.httpService.get(this.getPostDetailsUrl(postId)).pipe(
             map(resp => {
                 return resp.data;
@@ -58,7 +63,7 @@ export class TrueCallerApiService implements IBlogApi {
         return postResponse;
     }
 
-    getRelatedPosts(postId: number): Observable<Post[]> {
+    getRelatedPosts(postId: number): Observable<any> {
         const postResponse = this.httpService.post(this.getRelatedPostsUrl(postId)).pipe(
             map(resp => {
                 return resp.data;
@@ -79,6 +84,15 @@ export class TrueCallerApiService implements IBlogApi {
         }))
 
         return allPosts;
+    }
+
+    getSiteTags(): Observable<any> {
+        const tagResponse = this.httpService.get(this.getSiteTagsUrl()).pipe(
+            map(resp => {
+                return resp.data;
+            })
+        )
+        return tagResponse;
     }
 
 }

@@ -59,13 +59,13 @@
   }
 
   to {
-    transform: scale(0.7, 0.9);
+    transform: scale(0.7, 0.95);
   }
 }
 
 @keyframes sideBarCloseAnim {
   from {
-    transform: scale(0.7, 0.9);
+    transform: scale(0.7, 0.95);
   }
 
   to {

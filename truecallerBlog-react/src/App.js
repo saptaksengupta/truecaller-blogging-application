@@ -13,8 +13,8 @@ function App() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/category/:slug" component={CategoryPage} />
-        <Route exact path="/tag/:tag" component={TagPage} />
+        <Route exact path="/categories/:slug" component={CategoryPage} />
+        <Route exact path="/tags/:tag" component={TagPage} />
         <Route exact path="/posts/:postId" component={PostDetail} />
       </Switch>
     </BrowserRouter>

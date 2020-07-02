@@ -26,7 +26,7 @@ const Category = (props) => {
     const history = useHistory();
 
     const onCategoryClicked = () => {
-        history.push(`/category/${category.slug}`);
+        history.push(`/categories/${category.slug}`);
     }
 
     return (
