@@ -27,10 +27,6 @@ import { UtilityService } from './shared/utility.service';
       provide: APP_FILTER,
       useClass: HttpErrorFilter
     },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: TransformInterceptor
-    },
     UtilityService,
   ],
 })

@@ -9,8 +9,6 @@ import { PostContext } from '../../../context/PostContext';
 import { POST_ACTIONS } from '../../../reducers/PostReducer';
 import Post from '../../functional/Post';
 
-
-
 const Posts = (props) => {
 
     const { posts, dispatch } = useContext(PostContext);

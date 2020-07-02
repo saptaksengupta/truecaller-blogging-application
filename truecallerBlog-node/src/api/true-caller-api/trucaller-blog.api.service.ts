@@ -1,7 +1,7 @@
 import { Injectable, HttpService, HttpException, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { IBlogApi } from '../../entity/blog-api.interface';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Post } from '../../entity/post.entity';
@@ -65,6 +65,20 @@ export class TrueCallerApiService implements IBlogApi {
             })
         )
         return postResponse;
+    }
+
+    getAllRelatedPostDetails(postIds): any {
+        let allPosts = [];
+        return forkJoin([
+            this.getPostDetails(postIds[0]),
+            this.getPostDetails(postIds[1]),
+            this.getPostDetails(postIds[2])
+        ]).pipe(map(resp => {
+            allPosts = resp;
+            return allPosts;
+        }))
+
+        return allPosts;
     }
 
 }

@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { ContainerLayoutColumn, ContainerLayoutRow } from '../styled/CommonUtils';
 import { ClockIcon } from '../styled/Icons';
@@ -61,6 +62,10 @@ const Post = (props) => {
             </DefaultCard>
         </Fragment>
     )
+}
+
+Post.propTypes = {
+    postDetails: PropTypes.object.isRequired
 }
 
 export default Post;

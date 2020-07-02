@@ -2,8 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Post } from '../entity/post.entity';
 import { BlogApiFactory } from 'src/factory/blog-api.factory';
-import { title } from 'process';
-import { posix } from 'path';
+import { map } from 'rxjs/operators'
 
 @Injectable()
 export class PostService {
@@ -22,28 +21,30 @@ export class PostService {
     }
 
     async getPosts(queryParams = undefined): Promise<Post[]> {
-        this.blogApiProvider.getPosts(queryParams).subscribe((resp) => {
+        return this.blogApiProvider.getPosts(queryParams).pipe(map((resp: any) => {
             if (resp.posts) {
                 this.makePostsEmpty();
                 resp.posts.map((receivedPost) => {
                     this.processPostsForInternalUse(receivedPost);
                 });
+                return this.posts;
             }
-        });
-        return await this.posts;
+        })).toPromise();
     }
 
     async fetchPostDetails(postId): Promise<Post> {
-        await this.blogApiProvider.getPostDetails(postId).subscribe(async (resp) => {
+
+        const postDet = this.blogApiProvider.getPostDetails(postId).pipe(map((resp) => {
             if (resp) {
-                this.postDetails =  await this.filterPostFromResp(resp);
+                this.postDetails = this.filterPostFromResp(resp);
             }
-        });
-        return this.postDetails;
+            return this.postDetails;
+        }));
+        return postDet.toPromise();
     }
 
     async getRelatedPosts(postId: number): Promise<Array<number>> {
-        await this.blogApiProvider.getRelatedPosts(postId).subscribe(async (resp) => {
+        return this.blogApiProvider.getRelatedPosts(postId).pipe(map((resp: any) => {
             if (resp.hits) {
                 resp.hits.map((relatedPost) => {
                     if (this.relatedPosts.length < 3) {
@@ -52,8 +53,21 @@ export class PostService {
                     }
                 });
             }
-        });
-        return this.relatedPosts;
+            return this.relatedPosts;
+        })).toPromise();
+    }
+
+    getRelatedPostsByIds(postIds: []): Promise<Post[]> {
+        const det = this.blogApiProvider.getAllRelatedPostDetails(postIds).pipe(map((resp: any) => {
+            let det: Post[] = [];
+            if (resp) {
+                resp.map(postdet => {
+                    det.push(this.filterPostFromResp(postdet));
+                })
+            }
+            return det;
+        }));
+        return det.toPromise();
     }
 
     async getPostBasedByRelationScore(relatedPost) {

@@ -8,6 +8,7 @@ import { ContainerLayoutRow, ContainerLayoutColumn } from '../../styled/CommonUt
 
 //Child Components...
 import SideNav from './SideNav';
+import RelatedPosts from './RelatedPosts';
 
 const StyledPostContent = styled.div`
     padding: 1em;
@@ -89,6 +90,7 @@ const PostDetail = (props) => {
 
                             </StyledPostContent>
                         </StyledPostContent>
+                        <RelatedPosts postId={postDetail.id} relatedPostIds={postDetail.relatedPosts} ></RelatedPosts>
                     </ContainerLayoutColumn>
                 </div>
             </Fragment>
