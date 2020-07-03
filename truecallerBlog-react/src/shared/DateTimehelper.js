@@ -21,9 +21,13 @@ const getFromNow = (dateTimeStr) => {
     return moment(dateTimeStr).fromNow();
 }
 
+const getIsoFormat = (dateTimeStr) => {
+    return moment(dateTimeStr).toISOString();
+}
 
 export const DateTimeUtils = {
     parseDate: parseDate,
     parseTime: parseTime,
-    getFromNow: getFromNow
+    getFromNow: getFromNow,
+    getIsoFormat: getIsoFormat
 }

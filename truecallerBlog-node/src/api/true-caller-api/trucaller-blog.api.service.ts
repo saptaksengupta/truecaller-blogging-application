@@ -24,8 +24,8 @@ export class TrueCallerApiService implements IBlogApi {
             url = `${url}&tag=${queryParams.tag}`;
         }
 
-        if (queryParams && queryParams.after) {
-            url = `${url}&after=${queryParams.after}`;
+        if (queryParams && queryParams.before) {
+            url = `${url}&before=${queryParams.before}`;
         }
         return url;
     }

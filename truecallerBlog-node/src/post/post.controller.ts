@@ -21,6 +21,10 @@ export class PostController {
         } else if (queryParams.tag) {
             searchQueryObj['tag'] = queryParams.tag;
         }
+        if (queryParams.before) {
+            searchQueryObj['before'] = queryParams.before;
+        }
+
         try {
             const siteId = headers.siteid;
             const isValidUser = await this.utilityService.isValidUser(siteId);

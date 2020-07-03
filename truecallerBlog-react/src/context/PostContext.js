@@ -5,9 +5,15 @@ import { PostReducer } from '../reducers/PostReducer';
 export const PostContext = createContext();
 
 const PostContextProvider = (props) => {
-    const [posts, dispatch] = useReducer(PostReducer, []);
+
+    const initialState = {
+        posts: [],
+        before: null
+    }
+
+    const [postContextState, dispatch] = useReducer(PostReducer, initialState);
     return (
-        <PostContext.Provider value={{posts, dispatch}}>
+        <PostContext.Provider value={{postContextState, dispatch}}>
             {props.children}
         </PostContext.Provider>
     )
