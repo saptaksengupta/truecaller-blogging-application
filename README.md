@@ -48,4 +48,20 @@ It will spin up your local frontend `react web application` server at the localt
 
 <b>Front End</b>
 
-Just to speed up the development process used some existing libraries like [`react Styled Component`](https://styled-components.com) and on top of that i have already made my own library components to use it quickly.
+Just to speed up the development process used some existing libraries like [`react Styled Component`](https://styled-components.com) and on top of that i have already made my own library components to use it quickly. (have plans to make it a completely isolated ui components that can be featured in `StoryBook`).
+
+To maintain the state Globally used React's `Context Api`
+ 
+<b>Back End</b>
+
+In the backend to maintain the scalable design pattern i have implemented Repository Design pattern. 
+By using this in that scenario anybody can plug and play a diffrent api provider in a much cleaner way.
+
+
+# Github Repository
+
+[`saptaksengupta/truecaller-blogging-application`](https://github.com/saptaksengupta/truecaller-blogging-application)
+
+# Author 
+
+[`Saptak Sengupta`](https://www.linkedin.com/in/saptak-sengupta-8866ab160/)

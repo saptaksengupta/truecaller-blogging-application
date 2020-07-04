@@ -13,7 +13,7 @@ export class BlogApiFactory {
     public getApiInstance() {
         const selectedApiProvider: string = this.configService.get('CURRENT_BLOG_PROVIDER');
         switch (selectedApiProvider) {
-            case 'TRUECALLER':
+            case this.configService.get('CURRENT_BLOG_PROVIDER'):
                 return this.truCallerApi;
                 break;
             case 'SOME_OTHER_PROVIDER':
