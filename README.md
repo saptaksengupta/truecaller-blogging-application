@@ -57,6 +57,10 @@ To maintain the state Globally used React's `Context Api`
 In the backend to maintain the scalable design pattern i have implemented Repository Design pattern. 
 By using this in that scenario anybody can plug and play a diffrent api provider in a much cleaner way.
 
+## TODO
+
+   1. More responsiveness  
+   2. Add test cases  
 
 # Github Repository
 
