@@ -1,15 +1,17 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import styles from './side-nav.module.css';
 
 import { getBaseUrl, getRestApiCommonHeader } from '../../../Config';
-import { ContainerLayoutRow, ContainerLayoutColumn } from '../../styled/CommonUtils';
+import { ContainerLayoutColumn } from '../../styled/CommonUtils';
 
+import { TagContext } from '../../../context/TagContext';
 //Child Components...
 import Category from '../../functional/Category';
 import Tag from '../../functional/Tag';
+import { TAG_ACTIONS } from '../../../reducers/TagReducer';
 
 const StyledCategoryList = styled.ul`
 `;
@@ -41,31 +43,54 @@ const StyledListHeader = styled.div`
 `;
 
 const SideNav = (props) => {
-    const { categories, siteTgas } = props;
-    const [siteTags, setSiteTags] = useState([]);
+    const { categories } = props;
+    const { tagContextState, dispatch } = useContext(TagContext);
+    const [siteTagList, setSiteTagList] = useState([]);
+    const [fetchingTags, setFetchingTags] = useState(false);
 
     useEffect(() => {
-        getTagsBySiteId();
+        //Restricting rest api call every time 
+        // we open the sidenav
+        const { siteTags } = tagContextState;
+        debugger
+        if (siteTags.length === 0) {
+            getTagsBySiteId();
+        } else {
+            debugger;
+            setSiteTagList(siteTags);
+        }
     }, []);
 
     const getTagsBySiteId = () => {
+        setFetchingTags(true);
         const url = `${getBaseUrl()}tags/`;
         axios.get(url, {
             headers: getRestApiCommonHeader()
         }).then((resp) => {
             if (resp.data.response) {
-                setSiteTags(resp.data.response);
+                dispatch({ type: TAG_ACTIONS.FLUSH_TAGS, payload: { } });
+                const tags = resp.data.response;
+                tags.map(tag => {
+                    handleTags(tag, dispatch);
+                });
+                setSiteTagList(tags);
             }
+            setFetchingTags(false);
         }).catch((err) => {
             console.log(err);
+            setFetchingTags(false);
         });
+    }
+
+    const handleTags = (siteTag, dispatch) => {
+        dispatch({ type: TAG_ACTIONS.SET_TAG, payload: { siteTag } });
     }
 
     const categoriesList = Object.keys(categories).map((key) => {
         return (<Category key={categories[key].ID} category={categories[key]}></Category>);
     })
 
-    const siteTagsList = siteTags.map((tag, index) => {
+    const siteTagsListJsx = siteTagList.map((tag) => {
         return (<Tag tag={tag} key={tag.ID}></Tag>);
     })
 
@@ -96,14 +121,19 @@ const SideNav = (props) => {
                     <StyledListHeader>
                         Tag List
                     </StyledListHeader>
-                    {siteTagsList.length > 0 && (
+                    {(siteTagList.length > 0 && !fetchingTags) && (
                         <StyledSiteTagListItem>
-                            {siteTagsList}
+                            {siteTagsListJsx}
                         </StyledSiteTagListItem>
                     )}
-                    {siteTagsList.length == 0 && (
+                    {(siteTagList.length === 0 && !fetchingTags) && (
                         <StyledSiteTagListItem>
                             No Tags Found.
+                        </StyledSiteTagListItem>
+                    )}
+                    {fetchingTags && (
+                        <StyledSiteTagListItem>
+                            Fetching Tags . . . 🤔
                         </StyledSiteTagListItem>
                     )}
                 </StyledTagList>

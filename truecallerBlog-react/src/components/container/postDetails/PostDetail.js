@@ -5,6 +5,7 @@ import styles from './post-detail.module.css';
 
 import { getBaseUrl, getRestApiCommonHeader } from '../../../Config';
 import { ContainerLayoutColumn } from '../../styled/CommonUtils';
+import TagContextProvider from '../../../context/TagContext';
 
 //Child Components...
 import SideNav from './SideNav';
@@ -57,11 +58,13 @@ const PostDetail = (props) => {
         postDetail ? (
             <Fragment>
                 <div className={styles.postSideBarContainer}>
-                    <div className={sideBarClssNames}>
-                        {showSideNav && (
-                            <SideNav categories={postDetail.categories}></SideNav>
-                        )}
-                    </div>
+                    <TagContextProvider>
+                        <div className={sideBarClssNames}>
+                            {showSideNav && (
+                                <SideNav categories={postDetail.categories}></SideNav>
+                            )}
+                        </div>
+                    </TagContextProvider>
                     <ContainerLayoutColumn className={postContainerClassNames} alignment="start">
                         <div style={{ minWidth: '97%', margin: '1em 1em 0 1em' }}>
                             <div className={styles.postBanner} style={{ backgroundImage: `url(${postDetail.thumbnail})` }} >
