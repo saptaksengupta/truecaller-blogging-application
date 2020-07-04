@@ -42,7 +42,7 @@ const Posts = (props) => {
             if (anyQueryAdded) {
                 queryToAppend = `&before=${before}`;
             }
-            url = `${url}/${queryToAppend}`;
+            url = `${url}${queryToAppend}`;
         }
         return url
     }

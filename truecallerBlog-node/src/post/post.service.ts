@@ -79,7 +79,7 @@ export class PostService {
             excerpt: receivedPost.excerpt,
             content: receivedPost.content,
             date: receivedPost.date,
-            thumbnail: receivedPost.post_thumbnail.URL,
+            thumbnail: receivedPost.post_thumbnail ? receivedPost.post_thumbnail.URL : '',
             categories: receivedPost.categories
         };
         return post;
