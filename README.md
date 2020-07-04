@@ -13,7 +13,7 @@ First `cd` into the `truecallerBlog-node` folder and create a `.env` file inside
 
 ```bash
 PORT=9999
-SITE_ID=107403796
+SITE_ID=YOUR_SITE_ID
 TRUE_CALLER_API_BASE_URL=https://public-api.wordpress.com/rest/v1.1/sites
 CURRENT_BLOG_PROVIDER=TRUECALLER
 ```
